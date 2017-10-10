@@ -1,0 +1,48 @@
+{% set name = "tvb-library" %}
+{% set version = "1.5.4" %}
+{% set sha256 = "8084a1d7656c18a99855d5fd9efd52d62096ee4b668f3ea01d517839377f787b" %}
+
+package:
+  name: {{ name|lower }}
+  version: {{ version }}
+
+source:
+  fn: {{ name }}-{{ version }}.tar.gz
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  sha256: {{ sha256 }}
+
+build:
+  noarch: python
+  number: 0
+  script: python setup.py install --single-version-externally-managed --record record.txt
+  skip: True [py>27]
+
+requirements:
+  build:
+    - python
+    - setuptools
+    - gdist 
+    - networkx
+    - nibabel
+    - numpy
+    - numba
+    - numexpr
+    - scikit-learn
+    - scipy
+  run:
+    - python
+
+about:
+  home: http://thevirtualbrain.com/tvb/zwei
+  license: GPL-3.0
+  license_family: GPL
+  license_file: LICENSE.txt
+  summary: 'A package for performing whole brain simulations'
+  description: |
+    A package for performing whole brain simulations.
+  doc_url: http://docs.thevirtualbrain.org/
+  dev_url: https://github.com/the-virtual-brain/tvb-library
+
+extra:
+  recipe-maintainers:
+    - 'danvladpop'
